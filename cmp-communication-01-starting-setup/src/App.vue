@@ -3,6 +3,9 @@
     <header>
       <h1>My Friends</h1>
     </header>
+
+    <new-friend-form @submit-form="addFriend" />
+
     <ul>
       <friend-contact
         v-for="friend in friends"
@@ -13,6 +16,7 @@
         :phone-number="friend.phone"
         :email-address="friend.email"
         @toggle-favorite="toggleFavoriteStatus"
+        @delete="deleteContact"
       />
     </ul>
   </section>
@@ -46,6 +50,20 @@ export default {
         (friend) => friend.id === friendId
       );
       identifiedFriend.isFavorite = !identifiedFriend.isFavorite;
+    },
+    addFriend(value) {
+      const newFriendContact = {
+        id: new Date().toISOString(),
+        name: value.name,
+        phone: value.phoneNumber,
+        email: value.emailAddress,
+        isFavorite: value.isFavorite,
+      };
+
+      this.friends.push(newFriendContact);
+    },
+    deleteContact(contactId) {
+      this.friends = this.friends.filter((friend) => friend.id !== contactId);
     },
   },
 };
