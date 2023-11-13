@@ -3,14 +3,19 @@
   <main>
     <router-view></router-view>
   </main>
+  <footer>
+    <RouterView name="footer" />
+  </footer>
 </template>
 
 <script>
+import { RouterView } from 'vue-router';
 import TheNavigation from './components/nav/TheNavigation.vue';
 
 export default {
   components: {
     TheNavigation,
+    RouterView,
   },
   data() {
     return {
